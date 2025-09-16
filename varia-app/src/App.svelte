@@ -29,7 +29,17 @@
   </p>
 </main>
 
-<style>
+<style lang="scss">
+  .button {
+    @include card; // Actually works, just the editor is complaining
+    color: #fff;
+    background: $background-color;
+    padding: $spacing-md;
+
+    &:hover {
+      opacity: .95;
+    }
+  }
   .logo {
     height: 6em;
     padding: 1.5em;
@@ -51,3 +61,5 @@
 <h1>Hello {name}!</h1>
 
 <input bind:value={name} placeholder="Type your name" />
+
+<button class="button">SCSS works 🎊</button>
