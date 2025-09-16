@@ -1,0 +1,21 @@
+@use "./_globals.scss" as *;
+
+:root {
+    color-scheme: light dark;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-family-base;
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    color: $text-color;
+    color: #111;
+    margin: 0;
+    padding: 0;
+}
