@@ -1,27 +1,36 @@
 @use "./_variables.scss" as variables;
 
-// Centering mixin
-@mixin flex-center {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+@mixin card($pad: variables.$varia-spacing-default, $radius: variables.$radius) {
+    background: #111217;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: $radius;
+    padding: $pad;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
 }
 
-// Text truncation mixin
-@mixin text-truncate {
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+@mixin focus-ring {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(variables.$varia-primary-color, 0.45);
 }
 
-// Responsive font size mixin
-@mixin responsive-font($min, $max) {
-	font-size: clamp($min, 2vw, $max);
-}
+@mixin button-base {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: variables.$varia-font-family-base;
+    font-weight: 600;
+    border-radius: variables.$radius;
+    padding: variables.$varia-spacing-small variables.$varia-spacing-medium;
+    border: 1px solid transparent;
+    transition: transform 120ms ease, background-color 120ms ease, border-color 120ms ease, color 120ms ease;
+    cursor: pointer;
 
-@mixin card {
-    border-radius: 1.2rem;
-    box-shadow: 0 6px 24px rgba(0,0,0,.08);
-    padding: variables.$spacing-md;
-    background: red;
+    &:active {
+        transform: translateY(1px);
+    }
+
+	&:focus-visible {
+        @include focus-ring;
+    }
 }

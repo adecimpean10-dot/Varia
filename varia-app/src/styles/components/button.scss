@@ -1,0 +1,30 @@
+@use "../_mixins.scss" as *;
+@use "../_variables.scss" as *;
+
+.varia-button {
+    @include button-base;
+
+    &.primary {
+        background: $varia-primary-color;
+        color: #0b0c10;
+
+        &:hover:not(:disabled) { 
+            filter: brightness(1.08); 
+        }
+    }
+
+    &.ghost {
+        background: transparent;
+        color: $varia-primary-color;
+        border-color: rgba(124, 92, 255, 0.6);
+
+        &:hover:not(:disabled) {
+            background: rgba(124, 92, 255, 0.1);
+            border-color: $varia-primary-color;
+        }
+    }
+
+    &:disabled { 
+        opacity: 0.6; cursor: not-allowed; 
+    }
+}
