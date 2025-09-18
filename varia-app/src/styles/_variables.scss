@@ -1,19 +1,62 @@
 // Color variables
-$primary-color: #3498db;
-$secondary-color: #2ecc71;
-$accent-color: #e74c3c;
-$text-color: #333;
-$background-color: #f5f5f5;
+$varia-primary-color: #3498db;
+$varia-secondary-color: #2ecc71;
+$varia-accent-color: #e74c3c;
+$varia-text-color: #333;
+$varia-background-color: #f5f5f5;
 
 // Font variables
-$font-family-base: 'Roboto', Arial, sans-serif;
-$font-size-base: 16px;
-$font-weight-normal: 400;
-$font-weight-bold: 700;
+$varia-font-family-base: 'Roboto', Arial, sans-serif;
 
-// Spacing variables
-$spacing-xs: 4px;
-$spacing-sm: 8px;
-$spacing-md: 16px;
-$spacing-lg: 32px;
-$spacing-xl: 64px;
+$varia-font-size-default: 1.4rem !default;
+$varia-font-size-default-decr: 1.3rem !default;
+$varia-font-size-default-incr: 1.5rem !default;
+$varia-font-size-xxxs: .9rem !default;
+$varia-font-size-xxs: 1.0rem !default;
+$varia-font-size-xs: 1.1rem !default;
+$varia-font-size-s: 1.2rem !default;
+$varia-font-size-m: 1.6rem !default;
+$varia-font-size-l: 1.8rem !default;
+$varia-font-size-xl: 2.0rem !default;
+$varia-font-size-xxl: 2.4rem !default;
+$varia-font-size-xxxl: 2.6rem !default;
+$varia-font-size-xxxxl: 2.8rem !default;
+$varia-font-size-xxxxxl: 3.8rem !default;
+
+$varia-font-sizes: (
+    default: $varia-font-size-default,
+    default-decr: $varia-font-size-default-decr,
+    default-incr: $varia-font-size-default-incr,
+    xxxs: $varia-font-size-xxxs,
+    xxs: $varia-font-size-xxs,
+    xs: $varia-font-size-xs,
+    s: $varia-font-size-s,
+    m: $varia-font-size-m,
+    l: $varia-font-size-l,
+    xl: $varia-font-size-xl,
+    xxl: $varia-font-size-xxl,
+    xxxl: $varia-font-size-xxxl,
+    xxxx: $varia-font-size-xxxxl,
+    xxxxx: $varia-font-size-xxxxxl 
+);
+
+// App spacing variables
+$varia-spacing-xs: .5rem;
+$varia-spacing-small: 1rem;
+$varia-spacing-intermediate: 1.2rem;
+$varia-spacing-medium: 1.5rem;
+$varia-spacing-default: 2rem;
+$varia-spacing-large: 3rem;
+$varia-spacing-extra-large: 6rem;
+
+$varia-spacing: (
+    xs: $varia-spacing-xs,
+    small: $varia-spacing-small,
+    intermediate: $varia-spacing-intermediate,
+    medium: $varia-spacing-medium,
+    default: $varia-spacing-default,
+    large: $varia-spacing-large,
+    extra-large: $varia-spacing-extra-large
+);
+
+$radius: 12px;
