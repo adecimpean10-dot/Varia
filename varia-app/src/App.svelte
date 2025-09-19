@@ -1,5 +1,12 @@
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Button from './components/Button.svelte'
+  import { lighten, darken } from "./lib/color";
+
+  onMount(() => {
+    console.log(lighten("#ff0000", 0.1));
+    console.log(darken("#00ff00", 0.1));
+  });
 </script>
 
 <main>
