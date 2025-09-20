@@ -3,6 +3,7 @@
 
 .varia-button {
     @include button-base;
+    
 
     &.primary {
         background: $varia-primary-color;

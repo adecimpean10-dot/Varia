@@ -1,37 +1,109 @@
 import * as culori from "culori";
+import type { Oklch } from 'culori';
 
-// Convert hex to OKLCH
-export function hexToOklch(hex: string) {
-    return culori.converter("oklch")(hex);
+// Converters
+const toOKLCH = culori.converter("oklch");
+const toRGB = culori.converter("rgb");
+
+// Oklch color type
+//      mode?: "oklch";         // Color mode (can be "rgb", "oklch", etc.)
+//      l: number;              // Lightness [0, 1]
+//      c: number;              // Chroma [0, ~0.4]
+//      h?: number | null;      // Hue [0, 360) or null
+
+/** Internal: convert any CSS color/hex to Oklch or throw */
+function convertColorToOklch(color: string): Oklch {
+    const oklchColor = toOKLCH(color) as Oklch | undefined;
+    
+    if (!oklchColor || Number.isNaN(oklchColor.l))
+    {
+        throw new Error(`Invalid color: ${color}`);
+    }
+    
+    return {
+        mode: "oklch",
+        l: oklchColor.l,
+        c: oklchColor.c ?? 0,
+        h: oklchColor.h 
+    };
 }
 
-// Convert OKLCH back to hex
-export function oklchToHex(oklch: culori.Color) {
-    return culori.formatHex(oklch);
+/** Internal: format Oklch back to clamped sRGB hex */
+function convertOklchToHex(oklch: Oklch): string {
+    const rgb = toRGB(oklch);
+    return culori.formatHex(rgb);   
 }
 
-// Lighten by increasing lightness
+/**
+ * Lighten
+ * Increase lightness by a relative amount.
+ * @param hex     Color like "#6750A4" or "rebeccapurple"
+ * @param amount  
+ */
 export function lighten(hex: string, amount = 0.1) {
-    let c = hexToOklch(hex);
-    
-    if (!c || c.mode !== "oklch") 
-        return hex;
-    
-    c.l = Math.min(1, c.l + amount);
-    return oklchToHex(c);
+    let ok = convertColorToOklch(hex);
+
+    const l = Math.min(1, ok.l + amount);
+
+    return convertOklchToHex({ ...ok, l });
 }
 
-// Darken by decreasing lightness
+/**
+ * Darken
+ * Decrease lightness by a relative amount.
+ * @param hex     Color like "#6750A4" or "rebeccapurple"
+ * @param amount  
+ */
 export function darken(hex: string, amount = 0.1) {
-    let c = hexToOklch(hex);
+    let ok = convertColorToOklch(hex);
 
-    if (!c || c.mode !== "oklch") 
-        return hex;
+    const l = Math.max(0, ok.l - amount);
 
-    c.l = Math.max(0, c.l - amount);
-    return oklchToHex(c);
+    return convertOklchToHex({ ...ok, l });
 }
 
-// Temporary test logs
-console.log(lighten("#ff0000", 0.1)); // expect lighter red
-console.log(darken("#00ff00", 0.1));  // expect darker green
+/**
+ * Saturate
+ * Increase chroma (colorfulness) by a relative amount.
+ * @param hex     Color like "#6750A4" or "rebeccapurple"
+ * @param amount  0.0–1.0 typical (e.g., 0.1 = +10%). Can be >1, will just push harder.
+ */
+export function saturate(hex: string, amount: number): string {
+    const ok = convertColorToOklch(hex);
+    
+    const amt = Number.isFinite(amount) ? amount : 0;
+    const c = Math.max(0, ok.c * (1 + amt));
+    
+    return convertOklchToHex({ ...ok, c });     // ... = object spread (instead of creating a new object, it copies all properties from ok, then override c)
+}
+
+/**
+ * Desaturate
+ * Decrease chroma (colorfulness) by a relative amount.
+ * @param hex     Color like "#6750A4"
+ * @param amount  0.0–1.0 typical (0.1 = -10%). Values >=1 drive chroma toward 0.
+ */
+export function desaturate(hex: string, amount: number): string {
+    const ok = convertColorToOklch(hex);
+    
+    const amt = Math.min(Math.max(amount, 0), 10); // keep it sane
+    const c = Math.max(0, ok.c * (1 - amt));
+    
+    return convertOklchToHex({ ...ok, c });
+}
+
+// Rotate Hue
+/**
+ * Rotate hue by degrees in OKLCH space.
+ * @param hex Color like "#6750A4"
+ * @param deg Degrees to rotate (e.g., +20, -45)
+ */
+export function rotateHue(hex: string, deg: number): string {
+    const ok = convertColorToOklch(hex);
+    const d = Number.isFinite(deg) ? deg : 0;
+
+    // Normalize to [0, 360)
+    const h = (((ok.h ?? 0) + d) % 360 + 360) % 360;
+    
+    return convertOklchToHex({ ...ok, h });
+}
