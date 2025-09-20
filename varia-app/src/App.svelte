@@ -1,6 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import Button from './components/Button.svelte'
+  import ColorDemo from './components/ColorDemo.svelte';
   import { lighten, darken } from "./lib/color";
 
   onMount(() => {
@@ -14,6 +15,7 @@
   <div>
     <Button>Primary</Button>
     <Button variant="ghost">Ghost</Button>
+    <ColorDemo base="#6750A4" />
   </div>
 </main>
 
