@@ -44,3 +44,7 @@ src/
 npm run dev
 ```
 
+# Deployment
+- **Production:** https://varia-blush.vercel.app/
+- **Lates Preview (from PRs):** see PR comments for unique URLS
+

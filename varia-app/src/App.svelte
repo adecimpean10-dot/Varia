@@ -15,7 +15,7 @@
   <div>
     <Button>Primary</Button>
     <Button variant="ghost">Ghost</Button>
-    <ColorDemo base="#6750A4" />
+    <ColorDemo base="#6750A6" />
   </div>
 </main>
 
