@@ -6,7 +6,7 @@
 
     // Make a small, opinionated set of variants
     const variants = [
-        { label: 'Base',        color: base },
+        { label: 'Base',        
         { label: 'Light +10%',  color: lighten(base, 0.10) },
         { label: 'Dark  -10%',  color: darken(base, 0.10) },
         { label: 'Sat  +10%',   color: saturate(base, 0.10) },
